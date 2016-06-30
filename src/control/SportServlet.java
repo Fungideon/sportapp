@@ -65,6 +65,7 @@ public class SportServlet extends HttpServlet {
 			resp.sendRedirect("/sport");
 		}else if (req.getParameter("verwijder_lid_knop") != null){
 			String spelerscode = req.getParameter("spelerscode");
+			io.deleteSpelerFromAllTeams(spelerscode);
 			io.verwijderLid(spelerscode);
 			resp.sendRedirect("/sport");
 		}
@@ -101,6 +102,7 @@ public class SportServlet extends HttpServlet {
 			resp.sendRedirect("/sport");
 		}else if (req.getParameter("verwijder_team_knop") != null){
 			String teamcode = req.getParameter("teamcode");
+			io.deleteAllSpelersFromTeam(teamcode);
 			io.verwijderTeam(teamcode);
 			resp.sendRedirect("/sport");
 		}else if (req.getParameter("voeg_lid_toe_aan_team_knop") != null){

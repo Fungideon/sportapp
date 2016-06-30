@@ -175,4 +175,36 @@ public class SportIO {
 	    }		
 	    return teams;
 	}
+	
+	public void deleteSpelerFromAllTeams(String spelerscode){
+		Filter spelercodeFilter =  new FilterPredicate(
+                "spelerscode", //naam van property in datastore 
+                FilterOperator.EQUAL, //gelijk aan
+                spelerscode); //attribuut van team
+		
+		Query q = new Query("Teamspeler").setFilter(spelercodeFilter);
+	    PreparedQuery pq = datastore.prepare(q);
+	    
+	    for (Entity result: pq.asIterable()) {
+	    	String teamcode = (String) result.getProperty("teamcode");
+	    	Key k = KeyFactory.createKey("Teamspeler", teamcode + spelerscode);
+	    	datastore.delete(k);
+	    }	
+	}
+	
+	public void deleteAllSpelersFromTeam(String teamcode){
+	    Filter teamcodeFilter =  new FilterPredicate(
+                "teamcode", //naam van property in datastore 
+                FilterOperator.EQUAL, //gelijk aan
+                teamcode); //attribuut van team
+		
+		Query q = new Query("Teamspeler").setFilter(teamcodeFilter);
+	    PreparedQuery pq = datastore.prepare(q);
+	    
+	    for (Entity result: pq.asIterable()) {
+	    	String spelerscode = (String) result.getProperty("spelerscode");
+	    	Key k = KeyFactory.createKey("Teamspeler", teamcode + spelerscode);
+	    	datastore.delete(k);
+	    }	
+	}
 }

@@ -30,6 +30,9 @@ if (request.getAttribute("team") == null) {
 <%  }
 %>
 <br>
+<%
+if(!leden.isEmpty()){
+	%>
 <h3>Voeg Lid toe aan team</h3>
 <form action="/sport"  method="get">
 	<select name="spelerscode">
@@ -45,8 +48,15 @@ if (request.getAttribute("team") == null) {
        name="voeg_lid_toe_aan_team_knop" 
        value="voegtoe">
 </form>
+	<%
+}
+
+%>
 <br>
-<h3>Verwijder lid van team</h3>
+<%
+if(!teamspelers.isEmpty()){
+	%>
+	<h3>Verwijder lid van team</h3>
 <form action="/sport"  method="get">
 	<select name="spelerscode">
 		<% for (Lid lid: teamspelers) {
@@ -61,5 +71,8 @@ if (request.getAttribute("team") == null) {
        name="verwijder_lid_van_team_knop" 
        value="verwijder">
 </form>
+	<%
+}
+%>
 <a href="/sport">Terug naar overzicht</a>
 <% } %>
